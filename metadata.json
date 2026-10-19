@@ -1,0 +1,6 @@
+{
+  "name": "FUT Brain - Companion & SBC Solver",
+  "description": "EA SPORTS FC Ultimate Team SBC Eniyileyici, Kulüp ve Jeton Çözücü, Kadro Kurucu ve Canlı Pazar Analitiği",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

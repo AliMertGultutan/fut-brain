@@ -1,0 +1,14 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+extension/*.zip
+data/clubs/
+output/pdf/
+tmp/pdfs/
+
+output/github/

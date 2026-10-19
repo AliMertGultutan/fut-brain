@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "FUT Brain · Konsept Kadro",
+  "version": "0.3.4",
+  "description": "EA FC 27 kadronu, resmi kart görsellerini ve kimyanı aktarır; oyuncuya göre canlı EVO uygunluğu ve son kart önizlemesi sunar.",
+  "minimum_chrome_version": "120",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://www.ea.com/ea-sports-fc/ultimate-team/web-app/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [
+    { "matches": ["http://127.0.0.1/*", "http://localhost/*"], "js": ["site-content.js"], "run_at": "document_start" },
+    { "matches": ["https://www.ea.com/ea-sports-fc/ultimate-team/web-app/*"], "js": ["ea-content.js"], "run_at": "document_idle" }
+  ]
+}

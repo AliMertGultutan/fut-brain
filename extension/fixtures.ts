@@ -1,0 +1,18 @@
+import type { EaPlan } from '../src/services/eaBridgeProtocol.ts';
+export function fixturePlan(): EaPlan {
+  return { version: 1, mode: 'CONCEPT_ONLY', year: '27', platform: 'ps', createdAt: Date.now(), setName: 'Marquee Matchups', challengeName: 'FC Bayern München v RB Leipzig', formation: '4-3-3', sourceFetchedAt: new Date().toISOString(), expectedRating: 65, expectedChemistry: 21, estimatedCoins: 5800,
+    players: ['GK', 'RB', 'CB', 'CB', 'LB', 'CM', 'CM', 'CM', 'RW', 'ST', 'LW'].map((slot, i) => ({ futbinId: String(1000 + i), name: `Test Player ${i}`, rating: 60 + i, cardVersion: 'Normal', slot })) };
+}
+export function eaRuntime(plan = fixturePlan()) {
+  const stats = { saves: 0, searches: 0, mutations: 0, opened: 0, conditions: true, saveFails: false, searchHook: undefined as (() => void) | undefined };
+  const observable = (result: any) => ({ observe: (_observer: any, callback: any) => queueMicrotask(() => callback(null, result)), unobserve: () => undefined });
+  const cards = plan.players.map((p, i) => ({ id: -(2000 + i), definitionId: 2000 + i, assetId: 2000 + i, rating: p.rating, concept: true, isPlayer: (): boolean => true, isSpecial: (): boolean => false }));
+  const catalog = plan.players.map((p, i) => ({ id: 2000 + i, name: p.name, rating: p.rating }));
+  const slots = Array.from({ length: 23 }, (_, i) => ({ item: undefined as any, getIndex: () => i, getItem() { return this.item; }, isValid() { return !!this.item; }, isBrick: (): boolean => false, getGeneralPositionName: () => plan.players[i]?.slot }));
+  const squad = { getFormation: () => ({ name: '4-3-3' }), getFieldPlayers: () => slots.slice(0, 11), getPlayers: () => slots, removeAllItems() { slots.filter(s => !s.isBrick()).forEach(s => { s.item = undefined; }); }, setPlayers(items: any[]) { stats.mutations++; slots.forEach((slot, i) => { if (!slot.isBrick()) slot.item = items[i]; }); }, getRating: () => 65, getChemistry: () => 21 };
+  const set = { id: 900, name: plan.setName, hasExpired: () => false, isComplete: () => false, isOneClickSBC: () => false };
+  const challenge = { id: 901, setId: 900, name: plan.challengeName, squad, eligibilityRequirements: [{ id: 1 }], hasExpired: () => false, isCompleted: () => false, isOneClickChallenge: () => false, meetsRequirements: () => stats.conditions, isRequirementMet: () => stats.conditions };
+  const g: any = { GAME_NAME: 'fc27', services: { SBC: { requestSets: () => observable({ success: true, data: { sets: [set] } }), requestChallengesForSet: () => observable({ success: true, data: { challenges: [challenge] } }), loadChallenge: () => observable({ success: true, data: { squad } }), saveChallenge: () => { stats.saves++; return observable({ success: !stats.saveFails }); } },
+    Item: { searchConceptItems: (criteria: any) => { stats.searches++; stats.searchHook?.(); if (criteria.defId.some((id: number) => id < 2000)) throw new Error('FUTBIN kimliği EA kimliği olarak kullanıldı'); return observable({ success: true, response: { items: cards, endOfList: true } }); } } }, repositories: { Item: { getStaticData: () => catalog } }, UTSearchCriteriaDTO: class {}, SearchType: { PLAYER: 0 }, getAppMain: () => ({ getRootViewController: () => ({ setGameViewTab: () => undefined, getPresentedViewController: () => ({ getCurrentViewController: () => ({ pushViewController: () => { stats.opened++; } }) }) }) }), UTGameTabBarController: { TabTag: { SBC: 1 } }, UTSBCSquadSplitViewController: class { initWithSBCSet() {} }, UTSBCSquadOverviewViewController: class { initWithSBCSet() {} }, isPhone: () => false };
+  return { g, stats, cards, catalog, slots, squad, set, challenge };
+}

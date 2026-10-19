@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+.clubs-hero {
+  background: radial-gradient(ellipse at 95% 15%, rgb(122 208 255 / 15%), transparent 50%),
+    radial-gradient(ellipse at 70% 110%, rgb(183 245 106 / 10%), transparent 50%),
+    repeating-linear-gradient(115deg, transparent 0 64px, rgb(122 208 255 / 3%) 64px 65px),
+    var(--color-surface-container-low);
+}
+
+.ea-squad-pitch {
+  background-color: var(--color-surface-container-lowest);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgb(122 208 255 / 8%), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgb(156 216 81 / 6%), transparent 65%),
+    repeating-linear-gradient(0deg, transparent 0 90px, rgb(156 216 81 / 2.5%) 90px 180px);
+  box-shadow: inset 0 0 80px rgb(0 0 0 / 20%);
+}
+
+@theme {
+  --color-surface: #0a141f;
+  --color-surface-dim: #0a141f;
+  --color-surface-bright: #303a46;
+  --color-surface-container-lowest: #050f1a;
+  --color-surface-container-low: #121c28;
+  --color-surface-container: #17202c;
+  --color-surface-container-high: #212b37;
+  --color-surface-container-highest: #2c3642;
+  --color-on-surface: #d9e3f3;
+  --color-on-surface-variant: #c2c9b3;
+  --color-inverse-surface: #d9e3f3;
+  --color-inverse-on-surface: #27313d;
+  --color-outline: #8c937f;
+  --color-outline-variant: #424938;
+  --color-surface-tint: #9cd851;
+  --color-background: #0a141f;
+  --color-on-background: #d9e3f3;
+  --color-surface-variant: #2c3642;
+  
+  --color-primary: #ffffff;
+  --color-on-primary: #1f3700;
+  --color-primary-container: #b7f56a;
+  --color-on-primary-container: #457000;
+  --color-inverse-primary: #406900;
+  --color-primary-fixed: #b7f56a;
+  --color-primary-fixed-dim: #9cd851;
+  --color-on-primary-fixed: #102000;
+  --color-on-primary-fixed-variant: #2f4f00;
+
+  --color-secondary: #7ad0ff;
+  --color-on-secondary: #003549;
+  --color-secondary-container: #009bd0;
+  --color-on-secondary-container: #002d40;
+  --color-secondary-fixed: #c3e8ff;
+  --color-secondary-fixed-dim: #7ad0ff;
+  --color-on-secondary-fixed: #001e2c;
+  --color-on-secondary-fixed-variant: #004c68;
+
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #472a00;
+  --color-tertiary-container: #ffddb8;
+  --color-on-tertiary-container: #8d5900;
+  --color-tertiary-fixed: #ffddb8;
+  --color-tertiary-fixed-dim: #ffb95f;
+  --color-on-tertiary-fixed: #2a1700;
+  --color-on-tertiary-fixed-variant: #653e00;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --font-headline-xl: "Plus Jakarta Sans", sans-serif;
+  --font-headline-lg: "Plus Jakarta Sans", sans-serif;
+  --font-headline-sm: "Plus Jakarta Sans", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-body-sm: "Inter", sans-serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-data-lg: "JetBrains Mono", monospace;
+  --font-data-md: "JetBrains Mono", monospace;
+  --font-data-sm: "JetBrains Mono", monospace;
+
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-gutter: 1rem;
+  --spacing-space-xl: 2rem;
+  --spacing-space-lg: 1.25rem;
+  --spacing-space-md: 0.75rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-xs: 0.25rem;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a141f;
+    color: #d9e3f3;
+  }
+}
+
+/* Typography helper classes matching Stitch design tokens */
+.font-headline-xl {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.font-headline-lg {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+.font-headline-sm {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+.font-body-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+}
+.font-body-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+}
+.font-body-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+.font-label-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+.font-data-lg {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.font-data-md {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+}
+.font-data-sm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+/* Material Symbols alignment helper */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  display: inline-block;
+  user-select: none;
+}
+
+/* Custom compact scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050f1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2c3642;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #424938;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
